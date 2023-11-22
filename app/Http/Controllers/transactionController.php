@@ -11,6 +11,51 @@ use Illuminate\View\View;
 
 class transactionController extends Controller
 {
+    public function create(Request $request){
+        $customers = customer::all();
+        $product = product::all();
+        
+        return view('transaksi.create', compact('customers','product'));
+    }
+    public function storeweb(Request $request)
+    {
+        // Validasi data jika diperlukan
+        $rules = [
+            'customer_id' => 'required',
+            'qty' => 'required',
+            'total_count' => 'required',
+            'product_id' => 'required',
+        ];
+    
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'data' => $validator->errors()
+            ], 401);
+        }
+        $dataproduct = Product::find($request->product_id);
+        $datacustomer = Customer::find($request->customer_id);
+    
+        $datatransaction = new Transaction();
+        $transactionCount = Transaction::count();
+
+        $invoiceNumber = 'SP' . '20' . '01' . str_pad($transactionCount + 1, 8, '0', STR_PAD_LEFT);
+
+        $datatransaction->invoice_number = $invoiceNumber;
+        $datatransaction->customer_id = $datacustomer->id;
+        $datatransaction->qty = $request->qty;
+        $datatransaction->total_amount = $request->total_count * $dataproduct->harga;
+        $datatransaction->total_count = $request->total_count;
+        $datatransaction->product_id = $dataproduct->id;
+        $datatransaction->invoice_date = now(); 
+        $datatransaction->save();
+        // Jika ingin kembali ke halaman sebelumnya setelah menyimpan
+        return redirect()->route('index')
+        ->with('success', 'Post created successfully.');
+    }
     public function indexs(): View
     {
         //get posts
@@ -94,7 +139,11 @@ class transactionController extends Controller
         $datacustomer = Customer::find($request->customer_id);
     
         $datatransaction = new Transaction();
-        $datatransaction->invoice_number = "test";
+        $transactionCount = Transaction::count();
+
+        $invoiceNumber = 'SP' . '20' . '01' . str_pad($transactionCount + 1, 8, '0', STR_PAD_LEFT);
+
+        $datatransaction->invoice_number = $invoiceNumber;
         $datatransaction->customer_id = $datacustomer->id;
         $datatransaction->qty = $request->qty;
         $datatransaction->total_amount = $request->total_count * $dataproduct->harga;

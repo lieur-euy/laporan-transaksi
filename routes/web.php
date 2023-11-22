@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\transactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route :: get('/', 'App\Http\Controllers\laporanTransaksiController@indexs')->name('index');
+Route::get('/transaksi/create', transactionController::class . '@create')->name('transaksi.create');
+
+Route::post('/transaksi', transactionController::class .'@storeweb')->name('transactions.store');

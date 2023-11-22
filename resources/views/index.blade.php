@@ -14,6 +14,11 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="antialiased max-w-7xl">
+        <br />
+        <a class="p-3 bg-blue-500 rounded-lg" href="/transaksi/create">Create Transaksi</a>
+        <br />
+        <br />
+
         <h1 class="Text-3xl font-bold">tabel transaksi</h1>
         <table class="border-collapse border border-slate-500 w-full">
             <thead>
