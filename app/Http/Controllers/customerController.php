@@ -11,6 +11,33 @@ class customerController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function createweb(Request $request){
+       
+    
+        
+        return view('customer.create');
+    }
+    public function storeweb(Request $request)
+    {
+        $datacustomer = new customer();
+        $rules = [
+            'name' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation failed',
+                'data' => $validator->errors()
+            ],401);
+        }
+        $datacustomer->name = $request->name;
+        $datacustomer->save();
+  
+        // Jika ingin kembali ke halaman sebelumnya setelah menyimpan
+        return redirect()->route('index')
+        ->with('success', 'Post created successfully.');
+    }
     public function index()
     {
         $datacustomer = new customer();

@@ -1,11 +1,11 @@
 <div>
-   <h1>Msdadsa</h1>
+   <h1>Create transaksi</h1>
    <form action="{{ route('transactions.store') }}" method="POST">
     @csrf 
     <label for="customer_id">Customer ID:</label>
     <select id="customer_id" name="customer_id">
         @foreach($customers as $customer)
-            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+            <option value="{{ $customer->id }}">{{ $customer->id }}.{{ $customer->name }}</option>
             <!-- Ganti 'name' dengan atribut yang sesuai untuk menampilkan nama customer -->
         @endforeach
     </select>

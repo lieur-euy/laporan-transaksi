@@ -49,6 +49,12 @@
             </tbody>
         </table>
         <br/>
+        
+        <br/>
+   
+        <a class="p-3 bg-blue-500 rounded-lg" href="/product/create">Create Produk</a>
+        <br />
+        <br />
         <h1 class="Text-3xl font-bold ">tabel Produk</h1>
         <table class="border-collapse border border-slate-500 w-full">
             <thead>
@@ -72,7 +78,36 @@
             </tbody>
         </table>
 
-    <br/>
+   
+
+        <br/>
+   
+        <a class="p-3 bg-blue-500 rounded-lg" href="/customer/create">Create customer</a>
+        <br />
+        <br />
+        <h1 class="Text-3xl font-bold ">Customer</h1>
+        <table class="border-collapse border border-slate-500 w-full">
+            <thead>
+                <tr>
+                    <th scope="col" class="border border-slate-600 bg-blue-400"> </th>
+                    <th scope="col"  class="border border-slate-600 bg-blue-400">customer</th>
+
+                    <!-- Tambahkan kolom lain jika diperlukan -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($datacustomer as $customer)
+                <tr>
+                    <td  class="border border-slate-700">{{ $customer['id'] }}</td>
+                    <td  class="border border-slate-700">{{ $customer['name'] }}</td>
+
+                    <!-- Tambahkan sel lain jika diperlukan -->
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <br/>
         <h1 class="Text-3xl font-bold ">Laporan Transaksi</h1>
         <table class="border-collapse border border-slate-500 w-full">
             <thead>
@@ -98,29 +133,6 @@
                     <td  class="border border-slate-700">{{ $laporan['qty'] }}</td>
                     <td  class="border border-slate-700">{{ $laporan['total_amount'] }}</td>
        
-                    <!-- Tambahkan sel lain jika diperlukan -->
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <br/>
-        <h1 class="Text-3xl font-bold ">Customer</h1>
-        <table class="border-collapse border border-slate-500 w-full">
-            <thead>
-                <tr>
-                    <th scope="col" class="border border-slate-600 bg-blue-400"> </th>
-                    <th scope="col"  class="border border-slate-600 bg-blue-400">customer</th>
-
-                    <!-- Tambahkan kolom lain jika diperlukan -->
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($datacustomer as $customer)
-                <tr>
-                    <td  class="border border-slate-700">{{ $customer['id'] }}</td>
-                    <td  class="border border-slate-700">{{ $customer['name'] }}</td>
-
                     <!-- Tambahkan sel lain jika diperlukan -->
                 </tr>
                 @endforeach

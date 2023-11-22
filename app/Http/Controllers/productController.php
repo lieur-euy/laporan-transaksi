@@ -11,6 +11,35 @@ class productController extends Controller
 
 
 {        
+    public function createweb(Request $request){
+       
+        
+        return view('product.create');
+    }
+    public function storeweb(Request $request)
+    {
+        $dataproduct = new product();
+        $rules = [
+            'prdnm' => 'required',
+            'harga' => 'required',
+        
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation failed',
+                'data' => $validator->errors()
+            ],401);
+        }
+        $dataproduct->prdnm = $request->prdnm;
+        $dataproduct->harga = $request->harga;
+        $dataproduct->save();
+  
+        // Jika ingin kembali ke halaman sebelumnya setelah menyimpan
+        return redirect()->route('index')
+        ->with('success', 'Post created successfully.');
+    }
 
 
     public function index()

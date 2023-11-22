@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class transactionController extends Controller
 {
-    public function create(Request $request){
+    public function createweb(Request $request){
         $customers = customer::all();
         $product = product::all();
         
