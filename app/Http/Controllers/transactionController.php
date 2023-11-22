@@ -11,6 +11,27 @@ use Illuminate\View\View;
 
 class transactionController extends Controller
 {
+    
+    public function updateweb(Request $request, $id)
+  {
+    $request->validate([
+        'customer_id' => 'required',
+        'qty' => 'required',
+        'total_count' => 'required',
+        'product_id' => 'required',
+    ]);
+    $post = transaction::find($id);
+    $post->update($request->all());
+    return redirect()->route('index')
+      ->with('success', 'Post updated successfully.');
+  }
+    public function editweb($id)
+    {
+      $transaksi = transaction::find($id);
+      $customers = customer::all();
+      $product = product::all();
+      return view('transaksi.edit', compact('transaksi','customers', 'product'));
+    }
     public function createweb(Request $request){
         $customers = customer::all();
         $product = product::all();
@@ -56,10 +77,17 @@ class transactionController extends Controller
         return redirect()->route('index')
         ->with('success', 'Post created successfully.');
     }
+    public function destroyweb($id)
+    {
+      $transaksi = transaction::find($id);
+      $transaksi->delete();
+      return redirect()->route('index')
+        ->with('success', ' deleted successfully');
+    }
     public function indexs(): View
     {
         //get posts
-        $transactions = Transaction::all();
+        $transactions = transaction::all();
 
         $formattedTransactions = $transactions->map(function ($transaction) {
             $dataproduct = Product::find($transaction->product_id);
@@ -71,6 +99,7 @@ class transactionController extends Controller
                 'customer_name' => $datacustomer ? $datacustomer->name : null, // Contoh, ganti dengan atribut yang sesuai
                 'qty' => $transaction->qty,
                 'total_amount' => $transaction->total_amount,
+                'total_count' => $transaction->total_count,
                 'product_detail' => $dataproduct ? $dataproduct->prdnm : null, // Contoh, ganti dengan atribut yang sesuai
                 'invoice_date' => $transaction->invoice_date
       

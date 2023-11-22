@@ -11,6 +11,13 @@ class productController extends Controller
 
 
 {        
+    public function destroyweb($id)
+    {
+      $product = product::find($id);
+      $product->delete();
+      return redirect()->route('index')
+        ->with('success', ' deleted successfully');
+    }
     public function createweb(Request $request){
        
         

@@ -11,6 +11,13 @@ class customerController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function destroyweb($id)
+    {
+      $customerss = customer::find($id);
+      $customerss->delete();
+      return redirect()->route('index')
+        ->with('success', ' deleted successfully');
+    }
     public function createweb(Request $request){
        
     

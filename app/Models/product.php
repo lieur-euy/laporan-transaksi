@@ -12,4 +12,8 @@ class product extends Model
         'prdnm',
         'harga'
     ];
+    public function transaction()
+    {
+        return $this->hasMany(transaction::class);
+    }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->bigInteger('total_amount');
             $table->integer('total_count');
-            $table->foreignId('product_id');
+            $table->foreignId('product_id')->cascadeOnDelete();
             $table->dateTime('invoice_date')->now();
             $table->timestamps();
         });
